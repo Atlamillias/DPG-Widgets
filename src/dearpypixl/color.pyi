@@ -374,6 +374,36 @@ def window_bg(r: float, g: float, b: float, a: float = ..., /, *, label: str | N
 
 
 @overload
+def plot_axis_bg(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+@overload
+def plot_axis_bg(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+
+
+@overload
+def plot_axis_bg_active(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+@overload
+def plot_axis_bg_active(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+
+
+@overload
+def plot_axis_bg_hovered(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+@overload
+def plot_axis_bg_hovered(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+
+
+@overload
+def plot_axis_grid(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+@overload
+def plot_axis_grid(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+
+
+@overload
+def plot_axis_text(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+@overload
+def plot_axis_text(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
+
+
+@overload
 def plot_bg(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
 @overload
 def plot_bg(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
@@ -452,12 +482,6 @@ def plot_marker_outline(r: float, g: float, b: float, a: float = ..., /, *, labe
 
 
 @overload
-def plot_query(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_query(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
 def plot_selection(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
 @overload
 def plot_selection(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
@@ -467,54 +491,6 @@ def plot_selection(r: float, g: float, b: float, a: float = ..., /, *, label: st
 def plot_title_text(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
 @overload
 def plot_title_text(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_x_axis(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_x_axis(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_x_axis_grid(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_x_axis_grid(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis2(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis2(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis3(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis3(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis_grid(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis_grid(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis_grid2(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis_grid2(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-
-
-@overload
-def plot_y_axis_grid3(value: tuple[int, int, int] | Sequence[int] | tuple[int, int, int, int], /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
-@overload
-def plot_y_axis_grid3(r: float, g: float, b: float, a: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeColor: ...
 
 
 @overload
@@ -746,6 +722,11 @@ TitleBg = title_bg
 TitleBgActive = title_bg_active
 TitleBgCollapsed = title_bg_collapsed
 WindowBg = window_bg
+PlotAxisBg = plot_axis_bg
+PlotAxisBgActive = plot_axis_bg_active
+PlotAxisBgHovered = plot_axis_bg_hovered
+PlotAxisGrid = plot_axis_grid
+PlotAxisText = plot_axis_text
 PlotBg = plot_bg
 PlotBorder = plot_border
 PlotCrosshairs = plot_crosshairs
@@ -759,17 +740,8 @@ PlotLegendText = plot_legend_text
 PlotLine = plot_line
 PlotMarkerFill = plot_marker_fill
 PlotMarkerOutline = plot_marker_outline
-PlotQuery = plot_query
 PlotSelection = plot_selection
 PlotTitleText = plot_title_text
-PlotXAxis = plot_x_axis
-PlotXAxisGrid = plot_x_axis_grid
-PlotYAxis = plot_y_axis
-PlotYAxis2 = plot_y_axis2
-PlotYAxis3 = plot_y_axis3
-PlotYAxisGrid = plot_y_axis_grid
-PlotYAxisGrid2 = plot_y_axis_grid2
-PlotYAxisGrid3 = plot_y_axis_grid3
 NodeBg = node_bg
 NodeBgHovered = node_bg_hovered
 NodeBgSelected = node_bg_selected

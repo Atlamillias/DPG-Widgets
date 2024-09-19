@@ -676,7 +676,6 @@ class AppItemType(api.Item, int, register=False, metaclass=AppItemMeta):
 
     # [ CONSTRUCTORS ]
 
-
     @_onetime_setup
     def __new__(cls, *args, tag: Item = 0, **kwargs) -> Self:
         """Args:
@@ -1436,7 +1435,7 @@ class WindowType(api.Window, AppItemType):
 
 
 # FUNCTIONAL CLASSIFICATION TYPES
-# (these do not inherit from a base API)
+# (these do not inherit from an API class)
 
 class _ItemStateSized(_typing.ItemStateDict):
     pos      : tuple[int, int] | Sequence[int]  # type: ignore
@@ -1452,7 +1451,7 @@ class SupportsSized(AppItemType):
     height: Property[int] = ItemConfig()
 
     def state(self) -> _ItemStateSized: ...
-    del state
+    exec('del state')
 
     # Some items like `mvWindowAppItem` only support `rect_size`. The min/max
     # for these can be easily calculated.
@@ -1644,7 +1643,6 @@ class SupportsCallback(AppItemType, Generic[_P, _T]):
     __code__ = __call__.__code__
 
 
-
 assert all(
     '__slots__' in itp.__dict__
     for itp in AppItemType.__subclasses__()
@@ -1830,8 +1828,6 @@ def theme_types():
 
 @overload
 def auto_parent(parent_factory: ItemCommand, /) -> Callable[[type[_ITP]], type[_ITP]]: ...
-@overload
-def auto_parent(parent_factory: ItemCommand, /) -> Callable[[_T], _T]: ...
 @overload
 def auto_parent(parent_factory: ItemCommand, /, wrapped: type[_ITP]) -> type[_ITP]: ...
 @overload

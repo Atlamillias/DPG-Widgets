@@ -74,6 +74,18 @@ def child_rounding(x: float = ..., y: float = ..., /, *, label: str | None = ...
 
 
 @overload
+def disabled_alpha(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def disabled_alpha(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def docking_separator_size(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def docking_separator_size(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
 def frame_border_size(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
 @overload
 def frame_border_size(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
@@ -152,9 +164,51 @@ def selectable_text_align(x: float = ..., y: float = ..., /, *, label: str | Non
 
 
 @overload
+def separator_text_align(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def separator_text_align(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def separator_text_border_size(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def separator_text_border_size(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def separator_text_padding(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def separator_text_padding(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def tab_bar_border_size(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def tab_bar_border_size(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def tab_border_size(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def tab_border_size(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
 def tab_rounding(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
 @overload
 def tab_rounding(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def table_angled_headers_angle(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def table_angled_headers_angle(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+
+
+@overload
+def table_angled_headers_text_align(value: tuple[float, float] | Sequence[float] = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
+@overload
+def table_angled_headers_text_align(x: float = ..., y: float = ..., /, *, label: str | None = ..., user_data: Any = ..., use_internal_label: bool = ..., **kwargs) -> mvThemeStyle: ...
 
 
 @overload
@@ -444,6 +498,8 @@ ButtonTextAlign = button_text_align
 CellPadding = cell_padding
 ChildBorderSize = child_border_size
 ChildRounding = child_rounding
+DisabledAlpha = disabled_alpha
+DockingSeparatorSize = docking_separator_size
 FrameBorderSize = frame_border_size
 FramePadding = frame_padding
 FrameRounding = frame_rounding
@@ -457,7 +513,14 @@ PopupRounding = popup_rounding
 ScrollbarRounding = scrollbar_rounding
 ScrollbarSize = scrollbar_size
 SelectableTextAlign = selectable_text_align
+SeparatorTextAlign = separator_text_align
+SeparatorTextBorderSize = separator_text_border_size
+SeparatorTextPadding = separator_text_padding
+TabBarBorderSize = tab_bar_border_size
+TabBorderSize = tab_border_size
 TabRounding = tab_rounding
+TableAngledHeadersAngle = table_angled_headers_angle
+TableAngledHeadersTextAlign = table_angled_headers_text_align
 WindowBorderSize = window_border_size
 WindowMinSize = window_min_size
 WindowPadding = window_padding

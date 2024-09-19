@@ -1,6 +1,6 @@
 # [Project .gitignore]
 _debug.py
-
+debug.py
 
 
 # [OTHER .gitignore]

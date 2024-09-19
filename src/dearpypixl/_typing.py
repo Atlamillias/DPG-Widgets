@@ -74,8 +74,6 @@ else:
     from typing import override
 from . import _tools
 
-if TYPE_CHECKING:
-    from ._interface import AppItemType
 
 
 # Super-primitive types and protocols are declared here.
@@ -104,6 +102,7 @@ Point = Vec2[int]
 
 
 class Property(Protocol[_T_co]):
+    
     def __get__(self, instance: Any, cls: type[Any] | None = None) -> _T_co: ...
     def __set__(self, instance: Any, value: Any): ...
 
@@ -149,10 +148,10 @@ class _ItemProperty(Generic[_T]):
     def __init__(self, key: str = '', /):
         self._key = key
 
-    def __set_name__(self, cls: type['ItemInterface'], name: str):
+    def __set_name__(self, cls: type['ItemInterface'], name: str, /) -> Any:
         self._key = self._key or name
 
-    def __set__(self, instance: 'ItemInterface', value: Any):
+    def __set__(self, instance: 'ItemInterface', value: Any, /) -> Any:
         raise AttributeError(
             f'{type(instance).__qualname__!r} object attribute {self._key!r} is read-only.'
         )
@@ -163,8 +162,6 @@ class ItemConfig(_ItemProperty[_T]):
     and `.configure` hooks.
     """
     __slots__ = ('__set__',)
-
-    __set__: Callable[..., None]
 
     def __set_name__(self, cls: type['ItemInterface'], name: str):
         self._key = self._key or name
@@ -182,21 +179,27 @@ class ItemConfig(_ItemProperty[_T]):
         )
         self.__set__ = MethodType(__set__, self)
 
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = None) -> _T:
+    @overload
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    @overload
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
         if instance is None:
-            return self  # type: ignore
+            return self
         return instance.configuration()[self._key]
-
-
 
 class ItemInfo(_ItemProperty[_T]):
     """Item interface descriptor. Uses the interface's `.information` hook.
     """
     __slots__ = ()
 
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = None) -> _T:
+    @overload
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    @overload
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
         if instance is None:
-            return self  # type: ignore
+            return self
         return instance.information()[self._key]
 
 
@@ -205,9 +208,13 @@ class ItemState(_ItemProperty[_T]):
     """
     __slots__ = ()
 
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = None) -> _T | None:
+    @overload
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    @overload
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
         if instance is None:
-            return self  # type: ignore
+            return self
         return instance.state().get(self._key, None)
 
 
@@ -220,13 +227,13 @@ def null_command(*args, tag: Item = 0, **kwargs) -> Item:
     return tag
 
 
-class ItemInterfaceMeta(type(Protocol), abc.ABCMeta):
+class ItemInterfaceMeta(type(Protocol), abc.ABCMeta):  # type: ignore
     __slots__ = ()
 
     identity: tuple[int, str]
     command : ItemCommand
 
-    def __new__(__mcls: type[Self], __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any) -> Self:
+    def __new__(__mcls, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any):
         cls = super().__new__(__mcls, __name, __bases, __namespace, **kwargs)
         if not hasattr(cls, 'command'):
             setattr(cls, 'command', staticmethod(null_command))
@@ -243,9 +250,9 @@ class ItemInterfaceMeta(type(Protocol), abc.ABCMeta):
     def __repr__(self) -> str:
         return f"<class {self.__qualname__!r}>"
 
-    def register(self, cls: type[_T]) -> type[_T]:
+    def register(self, cls: type[_T]) -> type[_T]:  # pyright: ignore[reportIncompatibleMethodOverride]
         # This should only be used internally, and only a couple of
-        # times (max).
+        # times.
         assert isinstance(cls, ItemInterface)
         return super().register(cls)
 
