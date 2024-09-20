@@ -121,8 +121,8 @@ class _MarkerType(typing.Protocol):
     def __str__(self) -> str: ...
     def __eq__(self, other: Any) -> bool: ...
     def __hash__(self) -> int: ...
-    def __delattr__(self, name: str) -> TypeError: ...
-    def __setattr__(self, name: str, value: Any) -> TypeError: ...
+    def __delattr__(self, name: str) -> TypeError: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def __setattr__(self, name: str, value: Any) -> TypeError: ...  # pyright: ignore[reportIncompatibleMethodOverride]
 
 
 def create_marker_type(name: str, module: str, *, body: Mapping[str, Any] | Sequence[tuple[str, Any]] = ()) -> type[_MarkerType]:
@@ -436,7 +436,7 @@ class classproperty(_property, typing.Generic[T]):
     """
     __slots__ = ()
 
-    def __get__(self, instance: Any, cls: type[Any]) -> T:
+    def __get__(self, instance: Any, cls: type[Any]) -> T:  # pyright: ignore[reportIncompatibleMethodOverride]
         return self.__wrapped__(cls)
 
 
@@ -455,7 +455,7 @@ class staticproperty(_property, typing.Generic[T]):
     """
     __slots__ = ()
 
-    def __get__(self, instance: Any, cls: type[Any]) -> T:
+    def __get__(self, instance: Any, cls: type[Any]) -> T:  # pyright: ignore[reportIncompatibleMethodOverride]
         return self.__wrapped__()
 
 

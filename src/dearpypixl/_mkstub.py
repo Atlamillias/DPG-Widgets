@@ -238,7 +238,7 @@ class Imported(Sequence):
             except TypeError:
                 continue
 
-    def __getitem__(self, key: int) -> Any:
+    def __getitem__(self, index: int, /) -> Any:  # pyright: ignore[reportIncompatibleMethodOverride]
         return NotImplemented
 
     def __len__(self):

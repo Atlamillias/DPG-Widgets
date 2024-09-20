@@ -946,7 +946,7 @@ class Callback(ItemInterface):
             self._call_args  = tuple(call_args)
 
     @override
-    def configuration(self):
+    def configuration(self):    # pyright: ignore[reportIncompatibleMethodOverride]
         with self._lock:
             return dict(zip(
                 ('callback', _CallArgs.SENDER, _CallArgs.APP_DATA, _CallArgs.USER_DATA),
@@ -1014,7 +1014,7 @@ class Callback(ItemInterface):
                 (f'_callback({", ".join(callback_args)})',),
                 None,
                 globals=globals(),
-                locals=call_locals,
+                locals=call_locals,  # type: ignore
             )
             self.__call__ = MethodType(__call__, self)
             self.__code__ = self.__call__.__code__  # type:ignore
@@ -1145,7 +1145,7 @@ class CallStack(Callback):
     callbacks: Property[list[Callable]] = _tools.simpleproperty()
 
     @property
-    def callback(self):
+    def callback(self):  # pyright: ignore[reportIncompatibleVariableOverride]
         return self.__call__
 
     @overload
@@ -1158,7 +1158,7 @@ class CallStack(Callback):
         user_data: Any | _empty  = ...,
     ) -> None: ...
     @override
-    def configure(self, **kwargs):
+    def configure(self, **kwargs):  # pyright: ignore[reportIncompatibleMethodOverride]
         with self._lock:
             call_args = (
                 kwargs.pop(k, v)
@@ -1175,7 +1175,7 @@ class CallStack(Callback):
             self._call_args  = tuple(call_args)
 
     @override
-    def configuration(self):
+    def configuration(self):  # pyright: ignore[reportIncompatibleMethodOverride]
         with self._lock:
             return dict(zip(
                 (_CallArgs.SENDER, _CallArgs.APP_DATA, _CallArgs.USER_DATA),
@@ -1340,11 +1340,7 @@ def callback(callback: Any = None, sender: Any = _empty, app_data: Any = _empty,
 @overload
 def cooldown(timer_fn: Callable[[], _N], interval: _N, /, *, no_args: bool = False) -> Callable[[Callable[_P, Any]], Callable[_P, None]]: ...
 @overload
-def cooldown(timer_fn: Callable[[], _N], interval: _N, /, *, no_args: bool = True) -> Callable[[Callable[[], Any]], Callable[[], None]]: ...
-@overload
 def cooldown(timer_fn: Callable[[], _N], interval: _N, callback: Callable[_P, Any], /, *, no_args: bool = False) -> Callable[_P, None]: ...
-@overload
-def cooldown(timer_fn: Callable[[], _N], interval: _N, callback: Callable[_P, Any], /, *, no_args: bool = True) -> Callable[[], None]: ...
 def cooldown(timer_fn: Callable[[], _N], interval: _N, callback: Any = None, /, *, no_args: bool = False):
     """Return a wrapper that, when called, executes the target
     callable only if enough time has elapsed since the last time
@@ -1422,11 +1418,7 @@ def cooldown(timer_fn: Callable[[], _N], interval: _N, callback: Any = None, /, 
 @overload
 def cooldown_s(interval: _N, /, *, no_args: bool = False) -> Callable[[Callable[_P, Any]], Callable[_P, None]]: ...
 @overload
-def cooldown_s(interval: _N, /, *, no_args: bool = True) -> Callable[[Callable[[], Any]], Callable[[], None]]: ...
-@overload
 def cooldown_s(interval: _N, callback: Callable[_P, Any], /, *, no_args: bool = False) -> Callable[_P, None]: ...
-@overload
-def cooldown_s(interval: _N, callback: Callable[_P, Any], /, *, no_args: bool = True) -> Callable[[], None]: ...
 def cooldown_s(interval: _N, callback: Any = None, /, no_args: bool = False):  # type: ignore
     """Adds a cooldown to a callable with an interval in
     fractional seconds.

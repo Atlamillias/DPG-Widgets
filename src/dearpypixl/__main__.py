@@ -123,7 +123,8 @@ def items_pyi(fpath: str | Path):
             pyi_src2.append(f"{name} = {itp.__qualname__}")
     pyi_src2.sort()
 
-    pyi = ''.join((
+    pyi = '# pyright: reportIncompatibleVariableOverride=false, reportIncompatibleMethodOverride=false\n'
+    pyi += ''.join((
         pyi_imp,
         '\n\n\n'.join(pyi_src1),
         "\n\n\n\n",

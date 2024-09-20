@@ -74,6 +74,8 @@ else:
     from typing import override
 from . import _tools
 
+if TYPE_CHECKING:
+    from ._interface import AppItemType
 
 
 # Super-primitive types and protocols are declared here.
@@ -102,9 +104,9 @@ Point = Vec2[int]
 
 
 class Property(Protocol[_T_co]):
-    
-    def __get__(self, instance: Any, cls: type[Any] | None = None) -> _T_co: ...
-    def __set__(self, instance: Any, value: Any): ...
+
+    def __get__(self, instance: Any, cls: type[Any] | None = None, /) -> _T_co: ...
+    def __set__(self, instance: Any, value: Any, /): ...
 
 
 
@@ -180,10 +182,10 @@ class ItemConfig(_ItemProperty[_T]):
         self.__set__ = MethodType(__set__, self)
 
     @overload
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ..., /) -> _T: ...
     @overload
-    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
-    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ..., /) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None, /) -> Any:
         if instance is None:
             return self
         return instance.configuration()[self._key]
@@ -194,10 +196,10 @@ class ItemInfo(_ItemProperty[_T]):
     __slots__ = ()
 
     @overload
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ..., /) -> _T: ...
     @overload
-    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
-    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ..., /) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None, /) -> Any:
         if instance is None:
             return self
         return instance.information()[self._key]
@@ -209,10 +211,10 @@ class ItemState(_ItemProperty[_T]):
     __slots__ = ()
 
     @overload
-    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ...) -> _T: ...
+    def __get__(self, instance: 'ItemInterface', cls: type['ItemInterface'] | None = ..., /) -> _T: ...
     @overload
-    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ...) -> Self: ...
-    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None) -> Any:
+    def __get__(self, instance: None, cls: type['ItemInterface'] | None = ..., /) -> Self: ...
+    def __get__(self, instance: 'ItemInterface | None', cls: type['ItemInterface'] | None = None, /) -> Any:
         if instance is None:
             return self
         return instance.state().get(self._key, None)

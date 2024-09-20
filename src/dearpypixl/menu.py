@@ -1,6 +1,10 @@
 """[EXPERIMENTAL] Tools for creating and managing menus."""
+# pyright: reportIncompatibleVariableOverride=false, reportIncompatibleMethodOverride=false
 import warnings
-warnings.warn(f"The {__name__!r} module and its' contents are experimental and may change without notice.")
+warnings.warn(
+    f"The {__name__!r} module and its' contents are experimental "
+    "and may change without notice."
+)
 
 import collections
 from ._typing import (

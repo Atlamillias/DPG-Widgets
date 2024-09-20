@@ -65,6 +65,8 @@ Glossary:
     *callback* only accepts two positional arguments, it will pass
     `sender` and `app_data`, but not `user_data`.
 """
+# pyright: reportIncompatibleVariableOverride=false
+# pyright: reportIncompatibleMethodOverride=false
 # pyright: reportTypedDictNotRequiredAccess=none
 import os
 import sys
@@ -896,8 +898,8 @@ class Viewport(_typing.ItemInterface, metaclass=_ViewportMeta):
             _viewport_create(**kwds)  # type: ignore
             locker.value['ok'] = True
 
-    create.__func__.__func__.__kwdefaults__ = (
-        dearpygui.create_viewport.__kwdefaults__ | (create.__func__.__func__.__kwdefaults__ or {})
+    create.__func__.__func__.__kwdefaults__ = (  # pyright: ignore[reportFunctionMemberAccess]
+        dearpygui.create_viewport.__kwdefaults__ | (create.__func__.__func__.__kwdefaults__ or {})  # pyright: ignore[reportFunctionMemberAccess]
     )
 
     @overload
@@ -1521,7 +1523,7 @@ class Runtime(_typing.ItemInterface, metaclass=_RuntimeMeta):
 
         # The lock never held for access here. Worst-case is it
         # fixes itself in a frame.
-        rt_config    = Runtime.configure.__self__.value
+        rt_config    = Runtime.configure.__self__.value  # pyright: ignore[reportFunctionMemberAccess]
         # XXX: no hot-swapping
         is_running   = Runtime.is_running
         render_frame = cls.render_frame

@@ -425,7 +425,7 @@ def upd_param_annotations(parameters: Mapping[str, Parameter]) -> dict[str, Para
         elif name == 'pos':
             anno = tuple[int, int] | list[int]
         elif 'callback' in name or name == 'on_close':
-            anno = Callable | None
+            anno = Callable | None   # type: ignore
         elif (
             'color' in name
             or (p.default and isinstance(p.default, tuple))

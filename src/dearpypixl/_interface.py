@@ -1,3 +1,4 @@
+# pyright: reportIncompatibleVariableOverride=false, reportIncompatibleMethodOverride=false
 import abc
 import sys
 import uuid
@@ -124,7 +125,7 @@ def _create_init_overload(
     method.__name__      = '__init__'
     method.__qualname__  = f'{cls.__qualname__}.__init__'
     method.__module__    = cls.__module__
-    method.__signature__ = __signature
+    method.__signature__ = __signature  # pyright: ignore[reportFunctionMemberAccess]
     return method
 
 
@@ -186,7 +187,7 @@ def _create_init_method(cls: Any, parameters: Mapping[str, Parameter], *, __item
     params = [Parameter('self', Parameter.POSITIONAL_OR_KEYWORD), *parameters.values()]
     if 'kwargs' not in parameters:
         params.append(Parameter('kwargs', Parameter.VAR_KEYWORD))
-    method.__signature__ = inspect.Signature(
+    method.__signature__ = inspect.Signature(  # pyright: ignore[reportFunctionMemberAccess]
         params,
         return_annotation=None,
     )
@@ -196,7 +197,7 @@ def _create_init_method(cls: Any, parameters: Mapping[str, Parameter], *, __item
     if command.__kwdefaults__:
         method.__kwdefaults__ = dict(command.__kwdefaults__)
     method.__annotations__.clear()
-    for p in method.__signature__.parameters.values():
+    for p in method.__signature__.parameters.values():  # pyright: ignore[reportFunctionMemberAccess]
         if p.annotation is not p.empty:
             method.__annotations__[p.name] = p.annotation
     return method
@@ -240,7 +241,7 @@ def _create_configure_method(cls: Any, parameters: Mapping[str, Parameter]) -> A
     method.__name__      = "configure"
     method.__qualname__  = f'{cls.__qualname__}.configure'
     method.__module__    = cls.__module__
-    method.__signature__ = inspect.Signature(
+    method.__signature__ = inspect.Signature(  # pyright: ignore[reportFunctionMemberAccess]
         parameters=[
             Parameter('self', Parameter.POSITIONAL_OR_KEYWORD),
             *(p.replace(default=...) for p in parameters.values()),
@@ -249,7 +250,7 @@ def _create_configure_method(cls: Any, parameters: Mapping[str, Parameter]) -> A
         return_annotation=None,
     )
     method.__annotations__.clear()
-    for p in method.__signature__.parameters.values():
+    for p in method.__signature__.parameters.values():  # pyright: ignore[reportFunctionMemberAccess]
         if p.annotation is not p.empty:
             method.__annotations__[p.name] = p.annotation
     return method
@@ -294,14 +295,14 @@ def _create_configuration_method(cls: Any, parameters: Mapping[str, Parameter]) 
     method.__name__      = 'configuration'
     method.__qualname__  = f'{cls.__qualname__}.configuration'
     method.__module__    = cls.__module__
-    method.__signature__ = inspect.Signature(
+    method.__signature__ = inspect.Signature(  # pyright: ignore[reportFunctionMemberAccess]
         parameters=[
             Parameter('self', Parameter.POSITIONAL_OR_KEYWORD),
         ],
         return_annotation=return_annotation,
     )
     method.__annotations__.clear()
-    for p in method.__signature__.parameters.values():
+    for p in method.__signature__.parameters.values():  # pyright: ignore[reportFunctionMemberAccess]
         if p.annotation is not p.empty:
             method.__annotations__[p.name] = p.annotation
     return method
@@ -442,8 +443,11 @@ class AppItemMeta(type):
         elif register is True:
             _register_itemtype(cls, register=register)
 
-        if cls.__module__ == __name__:
-            assert '__slots__' in cls.__dict__
+        try:
+            assert '__slots__' in cls.__dict__  # type: ignore
+        except AssertionError:
+            if cls.__module__ == __name__:
+                raise
 
         return cls
 
@@ -788,7 +792,7 @@ class AppItemType(api.Item, int, register=False, metaclass=AppItemMeta):
     def __getnewargs_ex__(self):
         return (), {}
 
-    def __reduce_ex__(self, protocol: int = -1) -> _Reduced:
+    def __reduce_ex__(self, protocol: SupportsIndex = -1) -> _Reduced:
         save_state = _to_save_state(self)
 
         alias = save_state['alias']
@@ -849,9 +853,7 @@ class AppItemType(api.Item, int, register=False, metaclass=AppItemMeta):
     __getstate__: Callable[..., dict[str, Any]]
 
     @overload
-    def __copy__(self, /, **kwargs) -> Self: ...
-    @overload
-    def __copy__(self, /) -> Self: ...
+    def __copy__(self, /, **kwargs) -> Self: ...  # pyright: ignore[reportInconsistentOverload]
     def __copy__(self, __save_state__: _SaveState | None = None, /, **kwargs) -> Self:
         copy_state = __save_state__ or _to_save_state(self, **kwargs)
 
@@ -1106,7 +1108,7 @@ class AppItemType(api.Item, int, register=False, metaclass=AppItemMeta):
         self.set_value(value)
 
     @property
-    def root_parent(self):
+    def root_parent(self):  # pyright: ignore
         """[get] Return an interface for the top-level parent of this item
         branch."""
         root_parent = super().root_parent()
@@ -1189,7 +1191,7 @@ class mvAll(
     def __exit__(self, *args) -> None:
         self.pop_stack()
 
-    def __reduce_ex__(self, protocol: int = -1):
+    def __reduce_ex__(self, protocol: SupportsIndex = -1):
         return _get_base_itp(self).new(self).__reduce_ex__(protocol)
 
     # Identity-related class properties would always return False,

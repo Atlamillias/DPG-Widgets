@@ -1,3 +1,4 @@
+# pyright: reportIncompatibleVariableOverride=false, reportIncompatibleMethodOverride=false
 from ._typing import (
     Item,
     ItemAlias,

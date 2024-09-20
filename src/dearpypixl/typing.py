@@ -1,4 +1,5 @@
 from dearpygui import dearpygui
+from . import _typing
 from ._typing import (
     Item as Item,
     ItemUUID as ItemUUID,
@@ -8,10 +9,6 @@ from ._typing import (
     ItemCommand as ItemCommand,
     ItemInfoDict as ItemInfoDict,
     ItemStateDict as ItemStateDict,
-    mvBuffer as mvBuffer,
-    mvMat4 as mvMat4,
-    mvVec4 as mvVec4,
-
     cast,
 )
 from ._interface import (
@@ -50,6 +47,6 @@ from .api import (
 )
 
 
-mvBuffer = cast(type[mvBuffer], dearpygui.mvBuffer)
-mvMat4   = cast(type[mvMat4], dearpygui.mvMat4)
-mvVec4   = cast(type[mvVec4], dearpygui.mvVec4)
+mvBuffer = cast(type[_typing.mvBuffer], dearpygui.mvBuffer)
+mvMat4   = cast(type[_typing.mvMat4], dearpygui.mvMat4)
+mvVec4   = cast(type[_typing.mvVec4], dearpygui.mvVec4)

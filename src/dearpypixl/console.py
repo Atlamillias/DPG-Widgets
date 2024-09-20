@@ -1,11 +1,12 @@
 """Items for emulating consoles and other streams."""
-import sys   # type: ignore
+# pyright: reportIncompatibleVariableOverride=false, reportIncompatibleMethodOverride=false
+import sys
 import types
 import codeop
 import traceback
 import functools
 import threading
-import itertools  # type: ignore
+import itertools
 import contextlib
 import types
 from dearpygui import dearpygui
